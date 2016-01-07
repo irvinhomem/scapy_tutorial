@@ -10,4 +10,5 @@ matplotlib.get_backend()
 ans,unans=sr(IP(dst="www.bbc.co.uk")/TCP(sport=[RandShort()]*1000), timeout=1)
 
 plt.show(ans.plot(lambda x: x[1].id))
+#plt.show(ans.scatter(lambda x: x[1].id))
 
