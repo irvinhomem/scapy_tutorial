@@ -53,7 +53,8 @@ print("Example 1st Pkt byte (in hex): ", hex(dnsprotopktbytes[0][0]))
 print("Example 1st Pkt byte (in hex chr): ", chr(dnsprotopktbytes[0][0]))
 print("Type: ",type(dnsprotopktbytes[0][0]))
 print("Example 2nd Pkt byte (in decimal): ", dnsprotopktbytes[0][1])
-print("Example 2nd Pkt byte (in hex): ", dnsprotopktbytes[0][1])
+print("Example 2nd Pkt byte (in hex): ", hex(dnsprotopktbytes[0][1]))
+print("Example 2nd Pkt byte (in hex chr): ", chr(dnsprotopktbytes[0][1]))
 #print("Example 1st Pkt byte :\n", len(bytes(dnsprotopktbytes[0][0])))
 
 ################################
