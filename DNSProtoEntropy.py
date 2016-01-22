@@ -19,7 +19,8 @@ def CalcEntropy(myFreqDict):
 #pktcap = rdpcap("TestPcaps/BingSearchHTTP.pcapng")
 #pktcap = rdpcap("TestPcaps/HTTP.pcap")
 #pktcap = rdpcap("TestPcaps/Google_BBC_HTTP_over_DNS.pcapng")
-pktcap = rdpcap("TestPcaps/HTTP_Normal_Surf.pcapng")
+#pktcap = rdpcap("TestPcaps/HTTP_Normal_Surf.pcapng")
+pktcap = rdpcap("TestPcaps/HTTPoverDNS.pcap")
 
 ############################
 # Extract only sequence (dictionary) of frames containing DNS packets (both requests and responses)
