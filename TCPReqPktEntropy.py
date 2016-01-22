@@ -17,7 +17,7 @@ def CalcEntropy(myFreqDict):
 
 # Read from pcap file
 #pktcap = rdpcap("TestPcaps/BingSearchHTTP.pcapng")
-#pktcap = rdpcap("TestPcaps/HTTP.pcap")
+pktcap = rdpcap("TestPcaps/HTTP.pcap")
 #pktcap = rdpcap("TestPcaps/Google_BBC_HTTP_over_DNS.pcapng")
 #pktcap = rdpcap("TestPcaps/HTTP_Normal_Surf.pcapng")
 #pktcap = rdpcap("TestPcaps/HTTPoverDNS.pcap")
@@ -29,7 +29,8 @@ def CalcEntropy(myFreqDict):
 ################################
 print("--1--")
 print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-#Calculate byte/character entropy per packet if it is a HTTP packet (srcport/destport==80) with Raw Content
+# Calculate byte/character entropy per packet if it is a TCP (Request) packet (destport==80)
+# This includes also TCP handshakes (SYN and ACK parts)
 perPktCharEntropySeq = [CalcEntropy(Counter(bytes(pkt[IP][TCP]))) for pkt in pktcap if TCP in pkt and pkt[TCP].dport==80]
 print("Expect Seq Type: ", type(perPktCharEntropySeq))
 print("Length: ", len(perPktCharEntropySeq))
