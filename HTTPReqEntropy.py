@@ -19,11 +19,11 @@ def CalcEntropy(myFreqDict):
 #pktcap = rdpcap("TestPcaps/BingSearchHTTP.pcapng")
 #pktcap = rdpcap("TestPcaps/HTTP.pcap")
 #pktcap = rdpcap("TestPcaps/Google_BBC_HTTP_over_DNS.pcapng")
-#pktcap = rdpcap("TestPcaps/HTTP_Normal_Surf.pcapng")
+pktcap = rdpcap("TestPcaps/HTTP_Normal_Surf.pcapng")
 #pktcap = rdpcap("TestPcaps/HTTPoverDNS.pcap")
 #pktcap = rdpcap("NewPcaps/HTTP/BBC_normalHTTP.pcapng")
 #pktcap = rdpcap("NewPcaps/HTTP/BBC_normalHTTP-2.pcapng")
-pktcap = rdpcap("NewPcaps/HTTP/BBC_normalHTTP-3-ClearedCache.pcapng")
+#pktcap = rdpcap("NewPcaps/HTTP/BBC_normalHTTP-3-ClearedCache.pcapng")
 #pktcap = rdpcap("NewPcaps/HTTP/BBC_normalHTTP_incognito.pcapng")
 #pktcap = rdpcap("NewPcaps/HTTP/BBC_normalHTTP_incognito-2.pcapng")
 

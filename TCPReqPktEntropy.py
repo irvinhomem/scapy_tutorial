@@ -37,7 +37,7 @@ print("Length: ", len(perPktCharEntropySeq))
 
 # Plot of Entropy Values
 #plt.plot(perPktCharEntropySeq, color="red", marker="+", linestyle="None")
-plt.plot(perPktCharEntropySeq, marker="+", markeredgecolor="red", linestyle="None", color="blue")
+plt.plot(perPktCharEntropySeq, marker="+", markeredgecolor="red", linestyle="solid", color="blue")
 #plt.scatter(perPktCharEntropySeq)  # missing 'y' value ... but actually it's the x value that we need
 plt.suptitle("HTTP Request Entropy", size = 16)
 plt.xlabel("Packet Sequence (Time)", size=11)
