@@ -17,9 +17,9 @@ def CalcEntropy(myFreqDict):
 
 # Read from pcap file
 #pktcap = rdpcap("TestPcaps/BingSearchHTTP.pcapng")
-pktcap = rdpcap("TestPcaps/HTTP.pcap")
+#pktcap = rdpcap("TestPcaps/HTTP.pcap")
 #pktcap = rdpcap("TestPcaps/Google_BBC_HTTP_over_DNS.pcapng")
-#pktcap = rdpcap("TestPcaps/HTTP_Normal_Surf.pcapng")
+pktcap = rdpcap("TestPcaps/HTTP_Normal_Surf.pcapng")
 #pktcap = rdpcap("TestPcaps/HTTPoverDNS.pcap")
 
 # Extract only HTTP protocol section of packets (TCP Payload) and store a list/sequence (dictionary) of lengths
@@ -36,6 +36,7 @@ print("Expect Seq Type: ", type(perPktCharEntropySeq))
 print("Length: ", len(perPktCharEntropySeq))
 
 # Plot of Entropy Values
-plt.plot(perPktCharEntropySeq, color="red", marker="+", linestyle="None")
+#plt.plot(perPktCharEntropySeq, color="red", marker="+", linestyle="None")
+plt.plot(perPktCharEntropySeq, color="blue")
 #plt.scatter(perPktCharEntropySeq)  # missing 'y' value ... but actually it's the x value that we need
 plt.show()
