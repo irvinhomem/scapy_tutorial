@@ -17,7 +17,7 @@ def CalcEntropy(myFreqDict):
 
 # Read from pcap file
 #pktcap = rdpcap("TestPcaps/BingSearchHTTP.pcapng")
-pktcap = rdpcap("TestPcaps/HTTP.pcap")
+#pktcap = rdpcap("TestPcaps/HTTP.pcap")
 #pktcap = rdpcap("TestPcaps/Google_BBC_HTTP_over_DNS.pcapng")
 #pktcap = rdpcap("TestPcaps/HTTP_Normal_Surf.pcapng")
 #pktcap = rdpcap("TestPcaps/HTTPoverDNS.pcap")
@@ -34,6 +34,9 @@ pktcap = rdpcap("TestPcaps/HTTP.pcap")
 
 #pktcap = rdpcap("NewPcaps/bbc.co.uk/bbc.co.uk-2016-02-21-T221126.pcapng")
 #pktcap = rdpcap("NewPcaps/bbc.co.uk/bbc.co.uk-2016-02-21-T221311.pcapng")
+#pktcap = rdpcap("NewPcaps/FTP/ftp-PDF-small.pcapng")
+#pktcap = rdpcap("NewPcaps/FTP/ftp-PDF-BIG.pcapng")
+pktcap = rdpcap("NewPcaps/FTP/FTP.pcap")
 
 
 
@@ -41,29 +44,31 @@ print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 print("--1--")
 # Extract only HTTP protocol section of packets as a sequence (dictionary) of *bytes*
 # With destport == 80 ---> HTTP Requests
-httpReqpktbytes = [bytes(pkt[IP][TCP][Raw].load) for pkt in pktcap if TCP in pkt and Raw in pkt and pkt[TCP].dport==80]
-httpReqpktbytesFreq = [Counter(bytes(pkt[IP][TCP][Raw].load)) for pkt in pktcap if TCP in pkt and Raw in pkt and pkt[TCP].dport==80]
+#httpReqpktbytes = [bytes(pkt[IP][TCP][Raw].load) for pkt in pktcap if TCP in pkt and Raw in pkt and pkt[TCP].dport==80]
+#httpReqpktbytesFreq = [Counter(bytes(pkt[IP][TCP][Raw].load)) for pkt in pktcap if TCP in pkt and Raw in pkt and pkt[TCP].dport==80]
+TCPpktbytes = [bytes(pkt[IP][TCP][Raw]) for pkt in pktcap if TCP in pkt]
+TCPpktbytesFreq = [Counter(bytes(pkt[IP][TCP])) for pkt in pktcap if TCP in pkt]
 
 print("CHECKS for appropriate output ...")
-print("Type: ",type(httpReqpktbytesFreq))
+print("Type: ", type(TCPpktbytesFreq))
 #print("Counter output: ", httpReqpktbytesFreq)
-print("Counter output 1st set: ", httpReqpktbytesFreq[0])
-print("Counter output 2nd set: ", httpReqpktbytesFreq[1])
+print("Counter output 1st set: ", TCPpktbytesFreq[0])
+print("Counter output 2nd set: ", TCPpktbytesFreq[1])
 
-print("HTTP Protocol Pkt Bytes List length: ", len(httpReqpktbytes))
-print("Type: ", type(httpReqpktbytes))
-print("Example 1st Pkt 1st byte (in decimal): ", httpReqpktbytes[0][0])
-print("Example 1st Pkt 1st byte (in hex): ", hex(httpReqpktbytes[0][0]))
-print("Example 1st Pkt 1st byte (in hex chr): ", chr(httpReqpktbytes[0][0]))
-print("Type: ",type(httpReqpktbytes[0][0]))
-print("Example 1st Pkt 2nd byte (in decimal): ", httpReqpktbytes[0][1])
-print("Example 1st Pkt 2nd byte (in hex): ", hex(httpReqpktbytes[0][1]))
-print("Example 1st Pkt 2nd byte (in hex chr): ", chr(httpReqpktbytes[0][1]))
-print("Type: ",type(httpReqpktbytes[0][1]))
-print("Example 1st Pkt 3rd byte (in decimal): ", httpReqpktbytes[0][2])
-print("Example 1st Pkt 3rd byte (in hex): ", hex(httpReqpktbytes[0][2]))
-print("Example 1st Pkt 3rd byte (in hex chr): ", chr(httpReqpktbytes[0][2]))
-print("Type: ",type(httpReqpktbytes[0][2]))
+print("HTTP Protocol Pkt Bytes List length: ", len(TCPpktbytes))
+print("Type: ", type(TCPpktbytes))
+print("Example 1st Pkt 1st byte (in decimal): ", TCPpktbytes[0][0])
+print("Example 1st Pkt 1st byte (in hex): ", hex(TCPpktbytes[0][0]))
+print("Example 1st Pkt 1st byte (in hex chr): ", chr(TCPpktbytes[0][0]))
+print("Type: ", type(TCPpktbytes[0][0]))
+print("Example 1st Pkt 2nd byte (in decimal): ", TCPpktbytes[0][1])
+print("Example 1st Pkt 2nd byte (in hex): ", hex(TCPpktbytes[0][1]))
+print("Example 1st Pkt 2nd byte (in hex chr): ", chr(TCPpktbytes[0][1]))
+print("Type: ", type(TCPpktbytes[0][1]))
+print("Example 1st Pkt 3rd byte (in decimal): ", TCPpktbytes[0][2])
+print("Example 1st Pkt 3rd byte (in hex): ", hex(TCPpktbytes[0][2]))
+print("Example 1st Pkt 3rd byte (in hex chr): ", chr(TCPpktbytes[0][2]))
+print("Type: ", type(TCPpktbytes[0][2]))
 #print("Example 1st Pkt byte :\n", len(bytes(dnsprotopktbytes[0][0])))
 print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 
@@ -71,7 +76,7 @@ print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 print("--2--")
 print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 #Calculate byte/character entropy per packet if it is a HTTP packet (srcport/destport==80) with Raw Content
-perPktCharEntropySeq = [CalcEntropy(Counter(bytes(pkt[IP][TCP][Raw].load))) for pkt in pktcap if TCP in pkt and Raw in pkt and pkt[TCP].dport==80]
+perPktCharEntropySeq = [CalcEntropy(Counter(bytes(pkt[IP][TCP]))) for pkt in pktcap if TCP in pkt]
 print("Expect Seq Type: ", type(perPktCharEntropySeq))
 print("Length: ", len(perPktCharEntropySeq))
 
@@ -79,7 +84,7 @@ print("Length: ", len(perPktCharEntropySeq))
 #plt.plot(perPktCharEntropySeq, marker="+", markeredgecolor="red", linestyle="solid", color="blue")
 plt.plot(perPktCharEntropySeq, marker="+", markeredgecolor="red", linestyle="None", color="blue")
 #plt.scatter(perPktCharEntropySeq)  # missing 'y' value ... but actually it's the x value that we need
-plt.suptitle("HTTP Request Entropy", size = 16)
+plt.suptitle("Protocol X over TCP Protocol Entropy, \nwhere X=[HTTP or FTP]", size = 16)
 plt.xlabel("Packet Sequence (Time)", size=11)
 plt.ylabel("Byte (Char) Entropy per packet", size=11)
 plt.show()

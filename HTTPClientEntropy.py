@@ -70,8 +70,8 @@ print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 ################################
 print("--2--")
 print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-#Calculate byte/character entropy per packet if it is a HTTP packet (srcport/destport==80) with Raw Content
-perPktCharEntropySeq = [CalcEntropy(Counter(bytes(pkt[IP][TCP][Raw].load))) for pkt in pktcap if TCP in pkt and Raw in pkt and pkt[TCP].dport==80]
+#Calculate byte/character entropy per packet if it is a HTTP packet (srcport/destport==80) including Raw Content and ACKs
+perPktCharEntropySeq = [CalcEntropy(Counter(bytes(pkt[IP][TCP]))) for pkt in pktcap if TCP in pkt and pkt[TCP].dport==80]
 print("Expect Seq Type: ", type(perPktCharEntropySeq))
 print("Length: ", len(perPktCharEntropySeq))
 

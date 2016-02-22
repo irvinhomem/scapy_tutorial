@@ -44,9 +44,9 @@ print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 print("--2--")
 print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 # Extract only sequence (dictionary) of frames containing HTTP packets (both requests and responses) that have Content
-# Excludes any TCP Handshake packets to/from port 80
+# Includes any TCP Handshake packets to/from port 80 (Including all ACKs)
 # The 'Raw' dictionary (directive) item says that there is content in the HTTP/TCP packet
-httpfullframes = [pkt for pkt in pktcap if TCP in pkt and Raw in pkt and (pkt[TCP].dport==80 or pkt[TCP].sport==80)]
+httpfullframes = [pkt for pkt in pktcap if TCP in pkt and (pkt[TCP].dport==80 or pkt[TCP].sport==80)]
 
 # Check if successful
 print("HTTP Number of Entire Frames with HTTP Content(Raw): ", len(httpfullframes))
@@ -105,8 +105,9 @@ print("Type: ",type(httpprotopktbytes[0][2]))
 ################################
 
 print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-#Calculate byte/character entropy per packet if it is a HTTP packet (srcport/destport==80) with Raw Content
-perPktCharEntropySeq = [CalcEntropy(Counter(bytes(pkt[IP][TCP][Raw].load))) for pkt in pktcap if TCP in pkt and Raw in pkt and (pkt[TCP].dport==80 or pkt[TCP].sport==80)]
+#Calculate byte/character entropy per packet if it is a HTTP packet (srcport/destport==80) (includes all ACKs and those with Raw Content)
+#perPktCharEntropySeq = [CalcEntropy(Counter(bytes(pkt[IP][TCP]))) for pkt in pktcap if TCP in pkt and (pkt[TCP].dport==80 or pkt[TCP].sport==80)]
+perPktCharEntropySeq = [CalcEntropy(Counter(bytes(pkt[IP][TCP]))) for pkt in pktcap if TCP in pkt and (pkt[TCP].dport==80 or pkt[TCP].sport==80)]
 print("Expect Seq Type: ", type(perPktCharEntropySeq))
 print("Length: ", len(perPktCharEntropySeq))
 
