@@ -2,12 +2,13 @@ from scapy.all import *
 #from collections import Counter
 
 import matplotlib.pyplot as plt
+import matplotlib.ticker as plticker
 #import math
 
 # Read from pcap file
 #pktcap = rdpcap("TestPcaps/BingSearchHTTP.pcapng")
-#pktcap = rdpcap("TestPcaps/HTTP.pcap")                               #<<<-----
-pktcap = rdpcap("TestPcaps/HTTP_Normal_surf_4sites.pcapng")         #<<-----
+pktcap = rdpcap("TestPcaps/HTTP.pcap")                               #<<<-----
+#pktcap = rdpcap("TestPcaps/HTTP_Normal_surf_4sites.pcapng")         #<<-----
 #pktcap = rdpcap("TestPcaps/Google_BBC_HTTP_over_DNS.pcapng")
 #pktcap = rdpcap("TestPcaps/HTTP_Normal_Surf.pcapng")
 #pktcap = rdpcap("TestPcaps/HTTPoverDNS.pcap")
@@ -20,11 +21,22 @@ pktcap = rdpcap("TestPcaps/HTTP_Normal_surf_4sites.pcapng")         #<<-----
 #httpprotopktlens = [len(pkt[IP]) for pkt in pktcap if TCP in pkt and Raw in pkt and pkt[TCP].dport==80]
 
 #Get the Length of the entire of the entire packet for all TCP packets with source IP 193.10.9.28
-#httpprotopktlens = [len(pkt[IP]) for pkt in pktcap if TCP in pkt and pkt[IP].src=='193.10.9.28']       #<<<-------
-httpprotopktlens = [len(pkt[IP]) for pkt in pktcap if TCP in pkt and pkt[IP].src=='10.0.2.15']          #<<-----
+httpprotopktlens = [len(pkt[IP]) for pkt in pktcap if TCP in pkt and pkt[IP].src=='193.10.9.28']       #<<<-------
+#httpprotopktlens = [len(pkt[IP]) for pkt in pktcap if TCP in pkt and pkt[IP].src=='10.0.2.15']          #<<-----
 
 
 # Plot of Entropy Values
-plt.plot(httpprotopktlens, color="red", marker="+", linestyle="None")
-#plt.scatter(httpprotopktlens)  # missing 'y' value ... but actually it's the x value that we need
+fig, ax = plt.subplots()
+
+##plt.plot(httpprotopktlens, color="red", marker="+", linestyle="None")
+ax.plot(httpprotopktlens, color="red", marker="+", linestyle="None")
+##plt.scatter(httpprotopktlens)  # missing 'y' value ... but actually it's the x value that we need
+loc = plticker.MultipleLocator(base=100.0)
+ax.yaxis.set_major_locator(loc)
+## plt.xlabel("Packet #")
+## plt.ylabel("Length")
+ax.set_title("HTTP Req/TCP (IP Pkt Lengths)")
+ax.set_xlabel("Packet #")
+ax.set_ylabel("Length")
+
 plt.show()
