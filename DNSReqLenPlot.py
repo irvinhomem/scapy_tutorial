@@ -27,6 +27,12 @@ print("Seq Type: ", type(DNSReqpktlens))
 print("Seq Length: ", len(DNSReqpktlens))
 
 # Plot of Entropy Values
-plt.plot(DNSReqpktlens, color="red", marker="+", linestyle="None")
+fig, ax = plt.subplots()
+#plt.plot(DNSReqpktlens, color="red", marker="+", linestyle="None")
 #plt.scatter(httpprotopktlens)  # missing 'y' value ... but actually it's the x value that we need
+ax.plot(DNSReqpktlens, color="red", marker="+", linestyle="None")
+ax.set_title("HTTP-over-DNS Req (Query_name) Lengths")
+ax.set_xlabel("Packet #")
+ax.set_ylabel("Length")
+
 plt.show()

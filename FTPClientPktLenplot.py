@@ -26,6 +26,12 @@ ftpprotopktlens = [len(pkt[IP]) for pkt in pktcap if TCP in pkt and pkt[IP].src=
 #ftpprotopktlens = [len(pkt[IP][TCP][Raw].load) for pkt in pktcap if TCP in pkt and Raw in pkt and pkt[TCP].dport==21]
 
 # Plot of Entropy Values
-plt.plot(ftpprotopktlens, color="red", marker="+", linestyle="None")
+fig, ax = plt.subplots()
+#plt.plot(ftpprotopktlens, color="red", marker="+", linestyle="None")
 #plt.scatter(httpprotopktlens)  # missing 'y' value ... but actually it's the x value that we need
+ax.plot(ftpprotopktlens, color="red", marker="+", linestyle="None")
+ax.set_title("FTP Req/TCP (IP Pkt Lengths)")
+ax.set_xlabel("Packet #")
+ax.set_ylabel("Length")
+
 plt.show()
