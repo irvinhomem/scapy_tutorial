@@ -14,12 +14,15 @@ import matplotlib.pyplot as plt
 #pktcap = rdpcap("TestPcaps/Google_BBC_HTTP_over_DNS.pcapng")
 #pktcap = rdpcap("TestPcaps/HTTP_Normal_Surf.pcapng")
 pktcap = rdpcap("TestPcaps/HTTPoverDNS.pcap")
+#pktcap = rdpcap("TestPcaps/FTPoverDNS.pcap")
 #pktcap = rdpcap("TestPcaps/HTTPoverSSHoverDNS.pcap")
 
 # Extract only HTTP protocol section of packets (TCP Payload) and store a list/sequence (dictionary) of lengths
 #httpprotopktbytes = [bytes(pkt[IP][TCP][Raw].load) for pkt in pktcap if TCP in pkt and Raw in pkt and (pkt[TCP].dport==80 or pkt[TCP].sport==80)]
-DNSReqpktlens = [len(pkt[IP][UDP][DNS]) for pkt in pktcap if DNS in pkt and pkt[UDP].dport==53]
+#DNSReqpktlens = [len(pkt[IP][UDP][DNS]) for pkt in pktcap if DNS in pkt and pkt[UDP].dport==53]     #<<<------
 #DNSReqpktlens = [len(pkt[IP]) for pkt in pktcap if DNS in pkt and pkt[UDP].dport==53]
+DNSReqpktlens = [len(pkt[IP][UDP][DNS][DNSQR].qname) for pkt in pktcap if DNS in pkt and pkt[UDP].dport==53]
+
 print("Seq Type: ", type(DNSReqpktlens))
 print("Seq Length: ", len(DNSReqpktlens))
 
