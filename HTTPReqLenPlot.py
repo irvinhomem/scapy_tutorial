@@ -25,7 +25,7 @@ httpprotopktlens = [len(pkt[IP]) for pkt in pktcap if TCP in pkt and pkt[IP].src
 #httpprotopktlens = [len(pkt[IP]) for pkt in pktcap if TCP in pkt and pkt[IP].src=='10.0.2.15']          #<<-----
 
 
-# Plot of Entropy Values
+# Plot of Entropy Values #
 fig, ax = plt.subplots()
 
 ##plt.plot(httpprotopktlens, color="red", marker="+", linestyle="None")
