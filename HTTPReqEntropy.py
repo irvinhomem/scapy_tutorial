@@ -17,7 +17,10 @@ def CalcEntropy(myFreqDict):
 
 # Read from pcap file
 #pktcap = rdpcap("TestPcaps/BingSearchHTTP.pcapng")
-pktcap = rdpcap("TestPcaps/HTTP.pcap")
+
+#pktcap = rdpcap("TestPcaps/HTTP.pcap")                             #<<<<-------
+pktcap = rdpcap("TestPcaps/HTTP_Normal_surf_4sites.pcapng")         #<<<-----
+
 #pktcap = rdpcap("TestPcaps/Google_BBC_HTTP_over_DNS.pcapng")
 #pktcap = rdpcap("TestPcaps/HTTP_Normal_Surf.pcapng")
 #pktcap = rdpcap("TestPcaps/HTTPoverDNS.pcap")
@@ -71,7 +74,9 @@ print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 print("--2--")
 print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 #Calculate byte/character entropy per packet if it is a HTTP packet (srcport/destport==80) with Raw Content
-perPktCharEntropySeq = [CalcEntropy(Counter(bytes(pkt[IP][TCP][Raw].load))) for pkt in pktcap if TCP in pkt and Raw in pkt and pkt[TCP].dport==80]
+#perPktCharEntropySeq = [CalcEntropy(Counter(bytes(pkt[IP][TCP][Raw].load))) for pkt in pktcap if TCP in pkt and Raw in pkt and pkt[TCP].dport==80]   #<<<-----
+#perPktCharEntropySeq = [CalcEntropy(Counter(bytes(pkt[IP]))) for pkt in pktcap if TCP in pkt and pkt[IP].src=='193.10.9.28']  #<<----
+perPktCharEntropySeq = [CalcEntropy(Counter(bytes(pkt[IP]))) for pkt in pktcap if TCP in pkt and pkt[IP].src=='10.0.2.15']
 print("Expect Seq Type: ", type(perPktCharEntropySeq))
 print("Length: ", len(perPktCharEntropySeq))
 
@@ -79,7 +84,7 @@ print("Length: ", len(perPktCharEntropySeq))
 #plt.plot(perPktCharEntropySeq, marker="+", markeredgecolor="red", linestyle="solid", color="blue")
 plt.plot(perPktCharEntropySeq, marker="+", markeredgecolor="red", linestyle="None", color="blue")
 #plt.scatter(perPktCharEntropySeq)  # missing 'y' value ... but actually it's the x value that we need
-plt.suptitle("HTTP Request Entropy", size = 16)
-plt.xlabel("Packet Sequence (Time)", size=11)
+plt.suptitle("HTTP Request App-Layer Entropy", size = 16)
+plt.xlabel("Packet Series # (Time)", size=11)
 plt.ylabel("Byte (Char) Entropy per packet", size=11)
 plt.show()

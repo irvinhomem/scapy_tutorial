@@ -20,7 +20,9 @@ def CalcEntropy(myFreqDict):
 #pktcap = rdpcap("TestPcaps/HTTP.pcap")
 #pktcap = rdpcap("TestPcaps/Google_BBC_HTTP_over_DNS.pcapng")
 #pktcap = rdpcap("TestPcaps/HTTP_Normal_Surf.pcapng")
+
 pktcap = rdpcap("TestPcaps/HTTPoverDNS.pcap")
+#pktcap = rdpcap("TestPcaps/FTPoverDNS.pcap")
 
 # ############################
 # # Extract only sequence (dictionary) of frames containing DNS packets (both requests and responses)
@@ -72,13 +74,21 @@ pktcap = rdpcap("TestPcaps/HTTPoverDNS.pcap")
 
 #Calculate byte/character entropy per packet if it is a DNS request packet (destport=53)
 
-perPktCharEntropySeq = [CalcEntropy(Counter(bytes(pkt[IP][UDP][DNS]))) for pkt in pktcap if DNS in pkt and pkt[UDP].dport==53]
+#perPktCharEntropySeq = [CalcEntropy(Counter(bytes(pkt[IP][UDP][DNS]))) for pkt in pktcap if DNS in pkt and pkt[UDP].dport==53]
+perPktCharEntropySeq = [CalcEntropy(Counter(bytes(pkt[IP][UDP][DNS][DNSQR].qname))) for pkt in pktcap if DNS in pkt and pkt[UDP].dport==53]
+
 print("Type: ", type(perPktCharEntropySeq))
 print("Length: ", len(perPktCharEntropySeq))
 
 # Plot of Entropy Values
-plt.plot(perPktCharEntropySeq, color="red", marker="+", linestyle="None")
+fig, ax = plt.subplots()
+
+#plt.plot(perPktCharEntropySeq, color="red", marker="+", linestyle="None")
 #plt.scatter(perPktCharEntropySeq)  # missing 'y' value ... but actually it's the x value that we need
+ax.plot(perPktCharEntropySeq, color="red", marker="+", linestyle="None")
+ax.set_title("HTTP-over-DNS Req (Query_name) Entropy")
+ax.set_xlabel("Packet Series # (Time)")
+ax.set_ylabel("Byte (Char) Entropy per packet")
 plt.show()
 
 # #Define variables to collect sequence of packet lengths

@@ -37,7 +37,8 @@ def CalcEntropy(myFreqDict):
 
 #pktcap = rdpcap("NewPcaps/FTP/ftp-PDF-small.pcapng")
 #pktcap = rdpcap("NewPcaps/FTP/ftp-PDF-BIG.pcapng")
-pktcap = rdpcap("NewPcaps/FTP/FTP.pcap")
+#pktcap = rdpcap("NewPcaps/FTP/FTP.pcap")
+pktcap = rdpcap("TestPcaps/FTP_Normal_PDF_IMG_TXT.pcapng")
 
 
 
@@ -78,6 +79,8 @@ print("--2--")
 print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 #Calculate byte/character entropy per packet if it is a FTP packet (destport==21) with Raw Content i.e. FTP commands
 perPktCharEntropySeq = [CalcEntropy(Counter(bytes(pkt[IP][TCP][Raw].load))) for pkt in pktcap if TCP in pkt and Raw in pkt and pkt[TCP].dport==21]
+#perPktCharEntropySeq = [CalcEntropy(Counter(bytes(pkt[IP]))) for pkt in pktcap if TCP in pkt and pkt[IP].src=='193.10.9.28']
+#perPktCharEntropySeq = [CalcEntropy(Counter(bytes(pkt[IP]))) for pkt in pktcap if TCP in pkt and pkt[IP].src=='10.0.2.15']
 print("Expect Seq Type: ", type(perPktCharEntropySeq))
 print("Length: ", len(perPktCharEntropySeq))
 
@@ -85,7 +88,8 @@ print("Length: ", len(perPktCharEntropySeq))
 #plt.plot(perPktCharEntropySeq, marker="+", markeredgecolor="red", linestyle="solid", color="blue")
 plt.plot(perPktCharEntropySeq, marker="+", markeredgecolor="red", linestyle="None", color="blue")
 #plt.scatter(perPktCharEntropySeq)  # missing 'y' value ... but actually it's the x value that we need
-plt.suptitle("FTP Request Entropy", size = 16)
-plt.xlabel("Packet Sequence (Time)", size=11)
+plt.suptitle("FTP Request IP-Src Entropy", size = 16)
+#plt.suptitle("FTP Request App-Layer Entropy", size = 16)
+plt.xlabel("Packet Series # (Time)", size=11)
 plt.ylabel("Byte (Char) Entropy per packet", size=11)
 plt.show()

@@ -36,7 +36,7 @@ ax.yaxis.set_major_locator(loc)
 ## plt.xlabel("Packet #")
 ## plt.ylabel("Length")
 ax.set_title("HTTP Req/TCP (IP Pkt Lengths)")
-ax.set_xlabel("Packet #")
+ax.set_xlabel("Packet Series # (Time)")
 ax.set_ylabel("Length")
 
 plt.show()
