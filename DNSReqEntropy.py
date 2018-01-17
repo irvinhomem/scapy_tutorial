@@ -2,6 +2,7 @@ from scapy.all import *
 from collections import Counter
 
 import matplotlib.pyplot as plt
+import matplotlib
 import math
 
 # Entropy calculation function
@@ -83,13 +84,27 @@ print("Length: ", len(perPktCharEntropySeq))
 # Plot of Entropy Values
 fig, ax = plt.subplots()
 
+# Set Fonts to Arial bold
+#print("Font Family: ", matplotlib.rcParams['font.family'])
+#print("Font: ", matplotlib.rcParams['font.sans-serif'])
+matplotlib.rcParams['font.sans-serif'] = 'Arial'
+matplotlib.rcParams['font.weight'] = 'bold'
+matplotlib.rcParams['axes.labelweight'] = 'bold'
+#print("Font: ", matplotlib.rcParams['font.sans-serif'])
+#matplotlib.rc('font', serif='Arial'
+
+
 #plt.plot(perPktCharEntropySeq, color="red", marker="+", linestyle="None")
 #plt.scatter(perPktCharEntropySeq)  # missing 'y' value ... but actually it's the x value that we need
 ax.plot(perPktCharEntropySeq, color="red", marker="+", linestyle="None")
-ax.set_title("HTTP-over-DNS Req (Query_name) Entropy")
-ax.set_xlabel("Packet Series # (Time)")
-ax.set_ylabel("Byte (Char) Entropy per packet")
-plt.show()
+ax.set_title("HTTP-over-DNS Req (Query_name) Entropy", size=18, fontweight='bold')
+#ax.xaxis.set_tick_params(fontweight='bold')
+ax.set_xlabel("Packet Series # (Time)", size=12, fontweight='bold')
+ax.set_ylabel("Byte (Char) Entropy per packet", size=12, fontweight='bold')
+plt.xticks(fontweight='bold')
+plt.yticks(fontweight='bold')
+#plt.show()
+plt.savefig(fname='HTTP-over-DNS Req Query_name Entropy.eps', format="eps", dpi=600)
 
 # #Define variables to collect sequence of packet lengths
 # pktLenSeq = []
