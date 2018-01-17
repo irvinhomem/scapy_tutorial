@@ -98,8 +98,8 @@ plt.plot(perPktCharEntropySeq, marker="+", markeredgecolor="red", linestyle="Non
 plt.suptitle("HTTP Request App-Layer Entropy", size = 18, fontweight='bold')
 plt.xlabel("Packet Series # (Time)", size=12)
 plt.ylabel("Byte (Char) Entropy per packet", size=12)
-plt.show()
+#plt.show()
 #plt.draw()
-#plt.savefig(filename="Test-1200.eps", format="eps", dpi=1200)
+plt.savefig(fname='HTTP Request App-Layer Entropy.eps', format="eps", dpi=1200)
 
 
