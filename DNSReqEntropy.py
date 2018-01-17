@@ -22,8 +22,8 @@ def CalcEntropy(myFreqDict):
 #pktcap = rdpcap("TestPcaps/Google_BBC_HTTP_over_DNS.pcapng")
 #pktcap = rdpcap("TestPcaps/HTTP_Normal_Surf.pcapng")
 
-pktcap = rdpcap("TestPcaps/HTTPoverDNS.pcap")
-#pktcap = rdpcap("TestPcaps/FTPoverDNS.pcap")
+#pktcap = rdpcap("TestPcaps/HTTPoverDNS.pcap")      #<<<--- HTTP over DNS
+pktcap = rdpcap("TestPcaps/FTPoverDNS.pcap")        #<<<---- FTP over DNS
 
 # ############################
 # # Extract only sequence (dictionary) of frames containing DNS packets (both requests and responses)
@@ -97,14 +97,15 @@ matplotlib.rcParams['axes.labelweight'] = 'bold'
 #plt.plot(perPktCharEntropySeq, color="red", marker="+", linestyle="None")
 #plt.scatter(perPktCharEntropySeq)  # missing 'y' value ... but actually it's the x value that we need
 ax.plot(perPktCharEntropySeq, color="red", marker="+", linestyle="None")
-ax.set_title("HTTP-over-DNS Req (Query_name) Entropy", size=18, fontweight='bold')
+#ax.set_title("HTTP-over-DNS Req (Query_name) Entropy", size=18, fontweight='bold')             #<<<----- HTTP Over DNS
+ax.set_title("FTP-over-DNS Req (Query_name) Entropy", size=18, fontweight='bold')               #<<<----- FTP Over DNS
 #ax.xaxis.set_tick_params(fontweight='bold')
 ax.set_xlabel("Packet Series # (Time)", size=12, fontweight='bold')
 ax.set_ylabel("Byte (Char) Entropy per packet", size=12, fontweight='bold')
 plt.xticks(fontweight='bold')
 plt.yticks(fontweight='bold')
-#plt.show()
-plt.savefig(fname='HTTP-over-DNS Req Query_name Entropy.eps', format="eps", dpi=600)
+plt.show()
+#plt.savefig(fname='FTP-over-DNS Req Query_name Entropy.eps', format="eps", dpi=600)
 
 # #Define variables to collect sequence of packet lengths
 # pktLenSeq = []
