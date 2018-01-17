@@ -79,9 +79,9 @@ print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 print("--2--")
 print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 #Calculate byte/character entropy per packet if it is a FTP packet (destport==21) with Raw Content i.e. FTP commands
-perPktCharEntropySeq = [CalcEntropy(Counter(bytes(pkt[IP][TCP][Raw].load))) for pkt in pktcap if TCP in pkt and Raw in pkt and pkt[TCP].dport==21]
+perPktCharEntropySeq = [CalcEntropy(Counter(bytes(pkt[IP][TCP][Raw].load))) for pkt in pktcap if TCP in pkt and Raw in pkt and pkt[TCP].dport==21] ##<<<--- App Layeras
 #perPktCharEntropySeq = [CalcEntropy(Counter(bytes(pkt[IP]))) for pkt in pktcap if TCP in pkt and pkt[IP].src=='193.10.9.28']
-#perPktCharEntropySeq = [CalcEntropy(Counter(bytes(pkt[IP]))) for pkt in pktcap if TCP in pkt and pkt[IP].src=='10.0.2.15']
+#perPktCharEntropySeq = [CalcEntropy(Counter(bytes(pkt[IP]))) for pkt in pktcap if TCP in pkt and pkt[IP].src=='10.0.2.15'] # <<<----IP Src
 print("Expect Seq Type: ", type(perPktCharEntropySeq))
 print("Length: ", len(perPktCharEntropySeq))
 
@@ -98,9 +98,10 @@ matplotlib.rcParams['axes.labelweight'] = 'bold'
 #plt.plot(perPktCharEntropySeq, marker="+", markeredgecolor="red", linestyle="solid", color="blue")
 plt.plot(perPktCharEntropySeq, marker="+", markeredgecolor="red", linestyle="None", color="blue")
 #plt.scatter(perPktCharEntropySeq)  # missing 'y' value ... but actually it's the x value that we need
-#plt.suptitle("FTP Request IP-Src Entropy", size = 18)
-plt.suptitle("FTP Request App-Layer Entropy", size = 18)
+#plt.suptitle("FTP Request IP-Src Entropy", size = 18, fontweight='bold')          #<<--- IP Src
+plt.suptitle("FTP Request App-Layer Entropy", size = 18, fontweight='bold')        #<<--- App Layer
 plt.xlabel("Packet Series # (Time)", size=12)
 plt.ylabel("Byte (Char) Entropy per packet", size=12)
 #plt.show()
-plt.savefig(fname='FTP Request App-Layer Entropy.eps', format="eps", dpi=600)
+plt.savefig(fname='FTP Request App-Layer Entropy.eps', format="eps", dpi=600)   #<<--- App Layer
+#plt.savefig(fname='FTP Request IP-Src Entropy.eps', format="eps", dpi=600)      #<<--- IP Src
