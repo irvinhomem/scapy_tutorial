@@ -2,6 +2,7 @@ from scapy.all import *
 from collections import Counter
 
 import matplotlib.pyplot as plt
+import matplotlib
 import math
 
 # Entropy calculation function
@@ -84,12 +85,22 @@ perPktCharEntropySeq = [CalcEntropy(Counter(bytes(pkt[IP][TCP][Raw].load))) for 
 print("Expect Seq Type: ", type(perPktCharEntropySeq))
 print("Length: ", len(perPktCharEntropySeq))
 
+# Set Fonts to Arial bold
+#print("Font Family: ", matplotlib.rcParams['font.family'])
+#print("Font: ", matplotlib.rcParams['font.sans-serif'])
+matplotlib.rcParams['font.sans-serif'] = 'Arial'
+matplotlib.rcParams['font.weight'] = 'bold'
+matplotlib.rcParams['axes.labelweight'] = 'bold'
+#print("Font: ", matplotlib.rcParams['font.sans-serif'])
+#matplotlib.rc('font', serif='Arial')
+
 # Plot of Entropy Values
 #plt.plot(perPktCharEntropySeq, marker="+", markeredgecolor="red", linestyle="solid", color="blue")
 plt.plot(perPktCharEntropySeq, marker="+", markeredgecolor="red", linestyle="None", color="blue")
 #plt.scatter(perPktCharEntropySeq)  # missing 'y' value ... but actually it's the x value that we need
-plt.suptitle("FTP Request IP-Src Entropy", size = 16)
-#plt.suptitle("FTP Request App-Layer Entropy", size = 16)
-plt.xlabel("Packet Series # (Time)", size=11)
-plt.ylabel("Byte (Char) Entropy per packet", size=11)
-plt.show()
+#plt.suptitle("FTP Request IP-Src Entropy", size = 18)
+plt.suptitle("FTP Request App-Layer Entropy", size = 18)
+plt.xlabel("Packet Series # (Time)", size=12)
+plt.ylabel("Byte (Char) Entropy per packet", size=12)
+#plt.show()
+plt.savefig(fname='FTP Request App-Layer Entropy.eps', format="eps", dpi=600)
